@@ -1,148 +1,81 @@
-/////////////////Examines the HTML document object//////////
+////////////////TRANVERSING DOM/////////////
 
-//console.dir(document);
+// var itemList = document.querySelector("#items");
+// //parentNode
+// console.log(itemList.parentNode);
+// itemList.parentNode.style.backgroundColor = "orangered";
 
-//Print domain
-// console.log(document.domain);
+// //console log parent node of #main => div container
+// console.log(itemList.parentNode.parentNode);
 
-// //access URL
-// console.log(document.URL);
+// //childNodes
+// //it is not recommended because text_NODE in between
+// console.log(itemList.childNodes);
 
-// //title of page
-// console.log(document.title);
+// //children
+// console.log(itemList.children);
+// //get the first children
+// console.log(itemList.children[1]);
+// itemList.children[1].style.backgroundColor = "yellow";
 
-// //type of DOC
-// console.log(document.doctype);
+// //firstChild
+// //-> text_NODE because of space
+// console.log(itemList.firstChild);
 
-// //head
-// console.log(document.head);
+// //firstElmentChild
+// //-> li
+// console.log(itemList.firstElementChild);
+// itemList.firstElementChild.textContent = "Hello 1";
 
-// //body
-// console.log(document.body);
+// //lastChild
+// //-> text_NODE because of space
+// console.log(itemList.lastChild);
 
-//////Get a specific div/class
-console.log(document.all[11]); //-> title
+// //lastElmentChild
+// //-> last li
+// console.log(itemList.lastElementChild);
+// itemList.lastElementChild.textContent = "Hello 4";
 
-/////change a content of a div/class
-//thismethod should be avoided because when you squeeze div/element -> it will target the new div
-document.all[11].textContent = "Hello";
+// //nextSibling
+// console.log(itemList.nextSibling);
+// //nextElementSibling
+// console.log(itemList.nextElementSibling);
 
-//print the whole form
-console.log(document.forms);
-//print first line of form
-console.log(document.forms[0]);
-console.log(document.link);
-
-//img
-console.log(document.images);
-
-//////////////SELECTOR//////////
-
-//GetElementByID
-console.log(document.getElementById("header-title"));
-var headerTitle = document.getElementById("header-title");
-var header = document.getElementById("main-header");
-
-//////////Change content by targeting ID
-//textContent # innerHTML : innerHTML pays attention to styling
-headerTitle.textContent = "Hello";
-headerTitle.innerHTML = "Goodbye";
-
-//doesn't change h1 ->h3, put h3 inside original h1
-headerTitle.innerHTML = "<h3>Hello</h3>";
-
-/////////Change style
-//use camelCase for selector: borer-bottom ->borderBottom
-header.style.borderBottom = "solid 3px black";
-
-///////////////Get Element by Class Name///////
-var items = document.getElementsByClassName('list-group-item');
-
-//give us all of list-group-item
-console.log(items);
-
-//second child of ul
-console.log(items[1]);
-
-//change content for class .
-items[1].textContent = "Hello 2";
-
-//change style for class
-//camelCase
-items[1].style.fontWeight = 'bold';
-items[1].style.backgroundColor = 'yellow';
-
-//NOT GOING TO WORK bc it's an array -> have to loop thru it
-// items.style.backgroundColor = '#f4f4f4';
-//-> For loop
-for (var i = 0; i < items.length; i++) {
-    items[i].style.backgroundColor = '#f4f4f4';
-}
-
-
-//////////////////Get element by Tag name////////////////
-
-var li = document.getElementsByTagName("li");
-
-console.log(li);
-
-console.log(li[1]);
-
-li[1].textContent = "Hello 2";
-
-li[1].style.fontWeight = "bold";
-li[1].style.backgroundColor = "yellow";
-
-
-for (var i = 0; i < li.length; i++) {
- li[i].style.backgroundColor = "#f4f4f4";
-}
+// //previousSibling
+// console.log(itemList.previousElementSibling);
+// //previousElementSbling
+// console.log(itemList.previousElementSibling);
+// itemList.previousElementSibling.style.color = 'green';
 
 
 
-///////////////QUERY SELECTOR/////////
-//only for 1 item
-//for ID class
-var header = document.querySelector('#main-header');
-header.style.botterBottom = 'solid 4px #ccc';
+//createElement
 
-//for tag
-//only grab the first input
-var input = document.querySelector('input');
-input.value = 'Hello World';
+//create a div
+var newDiv = document.createElement('div');
+//add a class Hello to div
+newDiv.className = "hello";
 
-//target submit button
-var submit = document.querySelector('input[type = "submit"]');
-//change button value from submit -> send
-submit.value = "SEND";
+// Add id
+newDiv.id = 'Hello1';
 
-//target class
-//get the first .list-group-item
-var item = document.querySelector('.list-group-item');
-item.style.color = "red";
+//add attribute
+newDiv.setAttribute('title', 'Hello Div');
 
-//target last item
-var lastItem = document.querySelector(".list-group-item:last-child");
-lastItem.style.color = 'blue';
+//create text node
+var newDivText = document.createTextNode("hello World");
 
-//second item
-var secondItem = document.querySelector(".list-group-item:nth-child(2)");
-secondItem.style.color = "purple";
+//Add text to div
+newDiv.appendChild(newDivText);
 
+//insert newDiv onto html doc 
+//grab location: header .container
+var container = document.querySelector('header .container');
+//choose where it should be placed in header .container
+var h1 = document.querySelector('header h1');
 
-////////QUERY SELECTOR ALL//////
-//target all div with class title
-var titles = document.querySelectorAll('.title');
-console.log(titles);
+console.log(newDiv);
 
-//change content of first title
-titles[0].textContent = 'Bye bye';
+newDiv.style.fontSize = "30px";
 
-//change every odd li will have backgroun color of #f4f4f4
-var odd = document.querySelectorAll('li:nth-child(odd)');
-var even= document.querySelectorAll("li:nth-child(even)");
-
-for(var i = 0; i< odd.length; i++) {
-    odd[i].style.backgroundColor = '#f4f4f4';
-    even[i].style.backgroundColor = "#ccc";
-}
+container.insertBefore(newDiv, h1);
